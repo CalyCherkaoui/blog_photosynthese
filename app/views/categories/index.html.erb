@@ -1,0 +1,15 @@
+<% provide(:title, 'Categories')%>
+
+<section class="all_categories">
+
+  <% @categories.each_with_index do |category, index| %>
+
+      <%= render 'categories/caption_category', category: category, index: index %>
+
+  <% end %>
+
+</section>
+
+<section class="pagination_displayer">
+  <%= will_paginate @categories %>
+</section>

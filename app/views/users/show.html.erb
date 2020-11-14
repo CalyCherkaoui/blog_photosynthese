@@ -1,0 +1,74 @@
+<% provide(:title, 'Profile')%>
+
+
+<section class="user_profile">
+
+  <div class="user_profile_header">
+    <div class="user_profile_name">
+      <p>Hey! I'm <%= @user.name %>.</p>
+      <p>Welcome to my profile page.</p>
+      <p>Find here all the articles written by me, and also my favorite ones.</p>
+    </div>
+
+    <% if same_logged_in_user?(@user) %>
+      <div class="user_profile_tool">
+        <%= link_to 'Add new article', new_article_path %>
+      </div>
+    <% end %>
+  </div>
+
+    <% if same_logged_in_user?(@user) %>
+
+        <div class="user_profile_articles">
+              <p class="user_profile_gallery_header">Articles I liked</p>
+              <div class="user_profile_articles_gallery">
+
+                  <% if @liked_articles.empty? %>
+
+                      <div class="category_last_article_wrapper">
+                          <p class= "users_profile_default_msg">
+                              You didn't like any article yet!
+                          </p>
+                      </div>
+
+                  <% else %>
+
+                      <% @liked_articles.each_with_index do |article, index| %>
+
+                            <%= render 'shared/collection', article: article, index: index, category: article.category %>
+
+                      <% end %>
+                      
+                  <% end %>
+
+              </div>
+        </div>
+
+    <%end%>
+
+    <div class="user_profile_articles">
+      <p class="user_profile_gallery_header">Articles I Wrote</p>
+      <div class="user_profile_articles_gallery">
+
+          <% if @written_articles.empty? %>
+
+              <div class="category_last_article_wrapper">
+                  <p class= "users_profile_default_msg">
+                      I didn't wrote any article yet!
+                  </p>
+              </div>
+
+          <% else %>
+
+            <% @written_articles.each_with_index do |article, index| %>
+
+                <%= render 'shared/collection', article: article, index: index, category: article.category %>
+
+            <% end %>
+
+          <% end %>
+
+      </div>
+    </div>
+
+</section>

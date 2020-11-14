@@ -1,0 +1,35 @@
+<% provide(:title, @category.name )%>
+
+<section class="category_section">
+
+    <% if @articles.empty? %>
+
+        <div class="category_last_article_wrapper">
+          <div class="category_last_article_img">
+            <%= image_tag(asset_path('default.jpg')) %>
+          </div>
+          <div class="category_last_article_content">
+            <p class="category_last_article_name">
+              <%= link_to categories_path do %>
+                  <%= @category.name %>
+              <%end%>
+              <p class="category_last_article_hero_title">More articles soon in this category ...</p>
+            </p>
+          </div>
+        </div>
+
+    <% else %>
+
+      <% @articles.each_with_index do |article, index| %>
+
+        <%= render 'shared/collection', article: article, index: index, category: @category %>
+
+      <% end %>
+
+    <% end %>
+
+</section>
+
+<section class="pagination_displayer">
+  <%= will_paginate @articles %>
+</section>

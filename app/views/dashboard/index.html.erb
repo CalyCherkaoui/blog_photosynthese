@@ -1,0 +1,74 @@
+<% provide(:title, 'Dashboard')%>
+
+<section class="dashboard">
+  <div class="dashboard_navigator">
+
+      <div class="dashbord_header">
+        <p>Hello, <%= current_user.name %>!</p>
+        <p>Here is your Dashboard!</p>
+      </div>
+
+      <div class="dashboard_tool_box">
+        <%= link_to 'Add new Category', new_category_path , class: 'tool_box_link' %>
+        <%= link_to 'Add new Article', new_article_path, class: 'tool_box_link' %>
+      </div>
+      <div class="dashboard_tool_box">
+        <%= link_to 'List of Categories', categories_path, class: 'tool_box_link' %>
+        <%= link_to 'Edit Categories', new_category_path, class: 'tool_box_link' %>
+      </div>
+
+      <div class="dashboard_tool_box">
+        <div class="dashboard_stats_header">
+          Statistics:
+        </div>
+         <p class="dashboard_stats_data"><span><%= @articles_num %></span> Articles created</p>
+         <p class="dashboard_stats_data"><span><%= @likes %></span> Likes</p>
+         <p class="dashboard_stats_data"><span><%= @categories_num %></span> Categories</p>
+      </div>
+
+  </div>
+
+  <div class="dashboard_displayer">
+
+    <div class="dashboard_displayer_heros">
+
+      <table class="dashboard_displayer_heros_table">
+        <tr>
+          <td class="dashboard_displayer_heros_type">The Latest Added Article: </td>
+          <td class="dashboard_displayer_heros_link">
+              <%= latest_added_article_dashboard(@latest_added_article) %>
+          </td>
+        </tr>
+        <tr>
+          <td class="dashboard_displayer_heros_type">The Most Voted Article: </td>
+          <td class="dashboard_displayer_heros_link">
+              <%= most_voted_article_dashboard(@most_voted_article) %>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="dashboard_displayer_heros_type">The Latest Added Category: </td>
+          <td class="dashboard_displayer_heros_link">
+              <%= latest_added_category_dashboard(@latest_added_category) %>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+
+    <div class="dashbord_displayer_collection">
+        <div class="dashbord_displayer_collection_header">
+              <p>Articles to review:</p>
+        </div>
+
+        <div class="dashbord_displayer_collection_articles">
+              <% if @articles_released.empty? %>
+                    <p class="readmore">No articles added yet!</p>
+              <% else %>
+                    <%= render partial: 'dashboard/card', collection: @articles_released, as: :article, cached: true %>
+              <% end %>
+        </div>
+    </div>
+
+  </div>
+</section>
